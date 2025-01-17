@@ -79,19 +79,3 @@
             <option value="Cartoon">
         </datalist>
         <button onclick="searchTattoo()">Buscar no Pinterest</button>
-    </div>
-
-    <script>
-        function searchTattoo() {
-            const searchTerm = document.getElementById("searchTerm").value.trim();
-            if (searchTerm) {
-                const pinterestURL = `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(searchTerm)}+tattoo+design`;
-                window.open(pinterestURL, "_blank");
-            } else {
-                alert("Por favor, escolha um estilo de tatuagem!");
-            }
-        }
-    </script>
-
-</body>
-</html>
