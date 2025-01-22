@@ -1,194 +1,69 @@
 <!DOCTYPE html>
-
-<html lang="pt-BR">
-
+<html lang="en">
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Buscar Tatuagens</title>
-
+    <title>Buscar Design de Tatuagem</title>
     <style>
-
         body {
-
-            background-color: #000;
-
-            color: #fff;
-
+            background-color: black;
+            color: white;
             font-family: Arial, sans-serif;
-
             text-align: center;
-
-            padding: 20px;
-
+            margin: 0;
+            padding: 0;
         }
-
         .search-section {
-
             margin-top: 50px;
-
         }
-
-        .search-section input[type="text"] {
-
+        input[type="text"] {
+            width: 80%;
             padding: 10px;
-
             font-size: 16px;
-
-            width: 70%;
-
-            max-width: 400px;
-
-            border-radius: 5px;
-
-            border: 1px solid #ccc;
-
+            margin: 10px 0;
         }
-
-        .search-section button {
-
+        button {
             padding: 10px 20px;
-
             font-size: 16px;
-
-            background-color: #b71c1c;
-
-            color: #fff;
-
+            background-color: red;
+            color: white;
             border: none;
-
-            border-radius: 5px;
-
             cursor: pointer;
-
-            transition: background-color 0.3s, transform 0.3s;
-
         }
-
-        .search-section button:hover {
-
-            background-color: #e53935;
-
-            transform: scale(1.05);
-
+        button:hover {
+            background-color: darkred;
         }
-
+        .contact-icons {
+            margin-top: 50px;
+        }
+        .contact-icons img {
+            width: 50px;
+            margin: 10px;
+            cursor: pointer;
+        }
     </style>
-
 </head>
-
 <body>
-
-
-
     <h1>Buscar Design de Tatuagem</h1>
-
-
-
     <div class="search-section">
-
-        <input type="text" id="searchTerm" placeholder="Escolha um estilo de tatuagem" list="sugestoes">
-
-        <datalist id="sugestoes">
-
-            <option value="Realismo">
-
-            <option value="Minimalista">
-
-            <option value="Tribal">
-
-            <option value="Aquarela">
-
-            <option value="Geométrica">
-
-            <option value="Pontilhismo">
-
-            <option value="Old School">
-
-            <option value="New School">
-
-            <option value="Blackwork">
-
-            <option value="Lettering">
-
-            <option value="Oriental">
-
-            <option value="Maori">
-
-            <option value="Japonesa">
-
-            <option value="Vikings">
-
-            <option value="Mandalas">
-
-            <option value="Simbolismo">
-
-            <option value="Animais">
-
-            <option value="Florais">
-
-            <option value="Astrologia">
-
-            <option value="Mitologia">
-
-            <option value="Cyberpunk">
-
-            <option value="Biomecânica">
-
-            <option value="Abstrata">
-
-            <option value="Surrealismo">
-
-            <option value="Arte Sacra">
-
-            <option value="Gótica">
-
-            <option value="Linework">
-
-            <option value="Fine Line">
-
-            <option value="Trash Polka">
-
-            <option value="Dark Art">
-
-            <option value="Cartoon">
-
-        </datalist>
-
+        <!-- Campo de texto simples -->
+        <input type="text" id="searchTerm" placeholder="Digite o estilo de tatuagem">
         <button onclick="searchTattoo()">Buscar no Pinterest</button>
-
     </div>
-
-
-
+    <div class="contact-icons">
+        <a href="https://wa.me/559281708914"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/ale.tatuagem/"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"></a>
+    </div>
     <script>
-
         function searchTattoo() {
-
             const searchTerm = document.getElementById("searchTerm").value.trim();
-
             if (searchTerm) {
-
-                const pinterestURL = `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(searchTerm)}+tattoo+design`;
-
-                window.open(pinterestURL, "_blank");
-
+                const pinterestUrl = `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(searchTerm)} Tattoo`;
+                window.open(pinterestUrl, '_blank');
             } else {
-
-                alert("Por favor, escolha um estilo de tatuagem!");
-
+                alert("Por favor, digite um estilo de tatuagem!");
             }
-
         }
-
     </script>
-
-
-
 </body>
-
 </html>
-
