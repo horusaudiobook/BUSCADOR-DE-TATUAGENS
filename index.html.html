@@ -1,69 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscar Design de Tatuagem</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        .search-section {
-            margin-top: 50px;
-        }
-        input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            font-size: 16px;
-            margin: 10px 0;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: red;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: darkred;
-        }
-        .contact-icons {
-            margin-top: 50px;
-        }
-        .contact-icons img {
-            width: 50px;
-            margin: 10px;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscar Design de Tatuagem</title>
+  <style>
+    body {
+      background: linear-gradient(180deg, #000000, #111111 50%, #000000);
+      color: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      margin-top: 40px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #e50914; /* tom vermelho forte */
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid #e50914;
+    }
+
+    .search-section {
+      width: 90%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label {
+      display: none;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #333;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #e50914;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #b0060f;
+      transform: scale(1.05);
+    }
+
+    .contact-icons {
+      margin-top: auto;
+      padding: 30px 20px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .contact-icons img {
+      width: 40px;
+      filter: brightness(0.8);
+      transition: transform 0.2s, filter 0.3s;
+    }
+
+    .contact-icons img:hover {
+      transform: scale(1.1);
+      filter: brightness(1);
+    }
+  </style>
 </head>
 <body>
-    <h1>Buscar Design de Tatuagem</h1>
-    <div class="search-section">
-        <!-- Campo de texto simples -->
-        <input type="text" id="searchTerm" placeholder="Digite o estilo de tatuagem">
-        <button onclick="searchTattoo()">Buscar no Pinterest</button>
-    </div>
-    <div class="contact-icons">
-        <a href="https://wa.me/559281708914"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
-        <a href="https://www.instagram.com/ale.tatuagem/"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"></a>
-    </div>
-    <script>
-        function searchTattoo() {
-            const searchTerm = document.getElementById("searchTerm").value.trim();
-            if (searchTerm) {
-                const pinterestUrl = `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(searchTerm)} Tattoo`;
-                window.open(pinterestUrl, '_blank');
-            } else {
-                alert("Por favor, digite um estilo de tatuagem!");
-            }
-        }
-    </script>
+  <header>
+    <h1 id="typing-title"></h1>
+  </header>
+  <main class="search-section">
+    <label for="searchTerm">Digite o estilo de tatuagem</label>
+    <input type="text" id="searchTerm" placeholder="Ex: Old School, Geométrica, Realismo..." />
+    <button onclick="searchTattoo()">Buscar no Pinterest</button>
+  </main>
+  <footer class="contact-icons">
+    <a href="https://wa.me/559281708914" aria-label="WhatsApp">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" />
+    </a>
+    <a href="https://www.instagram.com/ale.tatuagem/" aria-label="Instagram">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram" />
+    </a>
+  </footer>
+  <script>
+    function searchTattoo() {
+      const searchTerm = document.getElementById("searchTerm").value.trim();
+      if (searchTerm) {
+        const pinterestUrl = `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(searchTerm + " tattoo")}`;
+        window.open(pinterestUrl, '_blank');
+      } else {
+        alert("Por favor, digite um estilo de tatuagem!");
+      }
+    }
+
+    // Permitir buscar ao pressionar Enter
+    document.getElementById("searchTerm").addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        searchTattoo();
+      }
+    });
+
+    // Animação de digitação no título
+    const titleText = "Buscar Design de Tatuagem";
+    let index = 0;
+    function typeWriter() {
+      if (index < titleText.length) {
+        document.getElementById("typing-title").textContent += titleText.charAt(index);
+        index++;
+        setTimeout(typeWriter, 100);
+      }
+    }
+    typeWriter();
+  </script>
 </body>
 </html>
