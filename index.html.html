@@ -1,85 +1,123 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Busque designs de tatuagem no Pinterest">
   <title>Buscar Design de Tatuagem</title>
   <style>
-    body {
-      background: linear-gradient(180deg, #000000, #111111 50%, #000000);
-      color: #f5f5f5;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    :root {
+      --primary-color: #e50914;
+      --primary-hover: #b0060f;
+      --bg-color: #000000;
+      --bg-gradient: linear-gradient(180deg, var(--bg-color), #111111 50%, var(--bg-color));
+      --text-color: #f5f5f5;
+      --input-bg: #1a1a1a;
+      --border-color: #333;
+    }
+
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
+      line-height: 1.6;
     }
 
     header {
-      margin-top: 40px;
+      margin: 2.5rem 0;
     }
 
     h1 {
-      font-size: 2.2rem;
-      color: #e50914; /* tom vermelho forte */
-      margin-bottom: 20px;
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      color: var(--primary-color);
+      margin-bottom: 1.25rem;
       letter-spacing: 1px;
       white-space: nowrap;
       overflow: hidden;
-      border-right: 3px solid #e50914;
+      border-right: 3px solid var(--primary-color);
     }
 
     .search-section {
-      width: 90%;
-      max-width: 500px;
+      width: min(90%, 500px);
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-bottom: 2rem;
     }
 
-    label {
-      display: none;
-    }
-
-    input[type="text"] {
+    #searchForm {
       width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border: 1px solid #333;
-      border-radius: 4px;
-      margin-bottom: 12px;
-      background-color: #1a1a1a;
-      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    input[type="search"] {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 0.25rem;
+      background-color: var(--input-bg);
+      color: var(--text-color);
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="search"]:focus {
+      outline: none;
+      border-color: var(--primary-color);
     }
 
     button {
       width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      background-color: #e50914;
+      padding: 0.75rem;
+      font-size: 1rem;
+      background-color: var(--primary-color);
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 0.25rem;
       cursor: pointer;
       transition: all 0.3s ease;
     }
 
     button:hover {
-      background-color: #b0060f;
-      transform: scale(1.05);
+      background-color: var(--primary-hover);
+      transform: scale(1.02);
+    }
+
+    .video-container {
+      width: min(90%, 800px);
+      margin: 2rem auto;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
+    }
+
+    .video-container iframe {
+      width: 100%;
+      height: 450px;
+      border: none;
     }
 
     .contact-icons {
       margin-top: auto;
-      padding: 30px 20px;
+      padding: 1.875rem 1.25rem;
       display: flex;
-      gap: 20px;
+      gap: 1.25rem;
     }
 
     .contact-icons img {
-      width: 40px;
+      width: 2.5rem;
       filter: brightness(0.8);
       transition: transform 0.2s, filter 0.3s;
     }
@@ -88,54 +126,132 @@
       transform: scale(1.1);
       filter: brightness(1);
     }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    h1::after {
+      content: "|";
+      animation: blink 1s step-end infinite;
+    }
+
+    @media (max-width: 768px) {
+      .video-container iframe {
+        height: 300px;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1 id="typing-title"></h1>
+    <h1 id="typing-title" aria-label="Buscar Design de Tatuagem"></h1>
   </header>
+  
   <main class="search-section">
-    <label for="searchTerm">Digite o estilo de tatuagem</label>
-    <input type="text" id="searchTerm" placeholder="Ex: Old School, Geométrica, Realismo..." />
-    <button onclick="searchTattoo()">Buscar no Pinterest</button>
+    <form id="searchForm" role="search">
+      <label for="searchTerm" class="sr-only">Digite o estilo de tatuagem</label>
+      <input 
+        type="search" 
+        id="searchTerm" 
+        placeholder="Ex: Old School, Geométrica, Realismo..." 
+        aria-required="true"
+      />
+      <button type="submit">Buscar no Pinterest</button>
+    </form>
   </main>
+
+  <!-- Seção do Vídeo -->
+  <div class="video-container">
+    <iframe 
+      src="https://assets.pinterest.com/ext/embed.html?id=3oeYrFYQt" 
+      height="450" 
+      width="800" 
+      frameborder="0" 
+      scrolling="no" 
+      allowfullscreen
+      title="Vídeo de inspiração para tatuagem">
+    </iframe>
+  </div>
+  
   <footer class="contact-icons">
-    <a href="https://wa.me/559281708914" aria-label="WhatsApp">
-      <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" />
+    <a href="https://wa.me/559281708914" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" loading="lazy">
     </a>
-    <a href="https://www.instagram.com/ale.tatuagem/" aria-label="Instagram">
-      <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram" />
+    <a href="https://www.instagram.com/ale.tatuagem/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram" loading="lazy">
     </a>
   </footer>
+  
   <script>
-    function searchTattoo() {
-      const searchTerm = document.getElementById("searchTerm").value.trim();
-      if (searchTerm) {
-        const pinterestUrl = `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(searchTerm + " tattoo")}`;
+    document.addEventListener('DOMContentLoaded', () => {
+      // Elementos DOM
+      const searchForm = document.getElementById('searchForm');
+      const searchInput = document.getElementById('searchTerm');
+      const titleElement = document.getElementById('typing-title');
+      
+      // Textos
+      const titleText = "Buscar Design de Tatuagem";
+      
+      // Função para buscar tatuagem
+      function searchTattoo(event) {
+        event.preventDefault();
+        
+        const searchTerm = searchInput.value.trim();
+        
+        if (!searchTerm) {
+          alert("Por favor, digite um estilo de tatuagem!");
+          searchInput.focus();
+          return;
+        }
+        
+        const pinterestUrl = `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(`${searchTerm} tattoo`)}`;
         window.open(pinterestUrl, '_blank');
-      } else {
-        alert("Por favor, digite um estilo de tatuagem!");
       }
-    }
-
-    // Permitir buscar ao pressionar Enter
-    document.getElementById("searchTerm").addEventListener("keydown", function(e) {
-      if (e.key === "Enter") {
-        searchTattoo();
+      
+      // Animação de digitação
+      function typeWriter(text, element, speed = 100) {
+        let index = 0;
+        
+        function type() {
+          if (index < text.length) {
+            element.textContent += text.charAt(index);
+            index++;
+            setTimeout(type, speed);
+          } else {
+            // Remove o cursor piscante após terminar a animação
+            element.style.borderRight = 'none';
+          }
+        }
+        
+        type();
       }
+      
+      // Event Listeners
+      searchForm.addEventListener('submit', searchTattoo);
+      
+      // Iniciar animação
+      typeWriter(titleText, titleElement);
+      
+      // Permitir busca com Enter mesmo sem o formulário (redundância para acessibilidade)
+      searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          searchTattoo(e);
+        }
+      });
     });
-
-    // Animação de digitação no título
-    const titleText = "Buscar Design de Tatuagem";
-    let index = 0;
-    function typeWriter() {
-      if (index < titleText.length) {
-        document.getElementById("typing-title").textContent += titleText.charAt(index);
-        index++;
-        setTimeout(typeWriter, 100);
-      }
-    }
-    typeWriter();
   </script>
 </body>
 </html>
