@@ -23,12 +23,30 @@
 
     h1 {
       font-size: 2.2rem;
-      color: #e50914; /* tom vermelho forte */
+      color: #d4af37; /* dourado */
       margin-bottom: 20px;
       letter-spacing: 1px;
       white-space: nowrap;
       overflow: hidden;
-      border-right: 3px solid #e50914;
+      border-right: 3px solid #d4af37;
+    }
+
+    .carousel {
+      width: 90%;
+      max-width: 500px;
+      height: 250px;
+      margin: 20px 0;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid #444;
+      position: relative;
+    }
+
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
     }
 
     .search-section {
@@ -47,7 +65,7 @@
       width: 100%;
       padding: 12px;
       font-size: 16px;
-      border: 1px solid #333;
+      border: 1px solid #444;
       border-radius: 4px;
       margin-bottom: 12px;
       background-color: #1a1a1a;
@@ -58,17 +76,18 @@
       width: 100%;
       padding: 12px;
       font-size: 16px;
-      background-color: #e50914;
-      color: white;
+      background: linear-gradient(90deg, #bfa14b, #d4af37, #bfa14b);
+      color: #000;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       transition: all 0.3s ease;
+      font-weight: bold;
     }
 
     button:hover {
-      background-color: #b0060f;
       transform: scale(1.05);
+      filter: brightness(1.1);
     }
 
     .contact-icons {
@@ -80,13 +99,13 @@
 
     .contact-icons img {
       width: 40px;
-      filter: brightness(0.8);
+      filter: brightness(0.8) sepia(1) hue-rotate(20deg) saturate(3);
       transition: transform 0.2s, filter 0.3s;
     }
 
     .contact-icons img:hover {
       transform: scale(1.1);
-      filter: brightness(1);
+      filter: brightness(1) sepia(1) hue-rotate(20deg) saturate(4);
     }
   </style>
 </head>
@@ -94,11 +113,18 @@
   <header>
     <h1 id="typing-title"></h1>
   </header>
+
+  <!-- Carrossel -->
+  <div class="carousel">
+    <img id="carouselImage" src="" alt="Tattoo Inspiration">
+  </div>
+
   <main class="search-section">
     <label for="searchTerm">Digite o estilo de tatuagem</label>
     <input type="text" id="searchTerm" placeholder="Ex: Old School, Geométrica, Realismo..." />
     <button onclick="searchTattoo()">Buscar no Pinterest</button>
   </main>
+
   <footer class="contact-icons">
     <a href="https://wa.me/559281708914" aria-label="WhatsApp">
       <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" />
@@ -107,7 +133,47 @@
       <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram" />
     </a>
   </footer>
+
   <script>
+    // Carrossel de imagens
+    const images = [
+      "https://i.pinimg.com/originals/1a/57/36/1a5736dcff87cc2fa76b2c32849d8f7b.jpg",
+      "https://i.pinimg.com/originals/8a/1d/df/8a1ddf3e2f1508ad2c9e9abbd1ed67c3.jpg",
+      "https://i.pinimg.com/originals/8e/0e/16/8e0e1621cf77243ba4ea3b5a4d2ad6b4.jpg",
+      "https://i.pinimg.com/originals/2b/5b/36/2b5b36df8e66d83c24e3d7f37f8ef9f2.jpg",
+      "https://i.pinimg.com/originals/0f/bc/d6/0fbcd6e11fc8e1a9c31d2af1da74c395.jpg",
+      "https://i.pinimg.com/originals/3e/3d/0a/3e3d0a8f57e2dc54a332830e7f7bb0eb.jpg",
+      "https://i.pinimg.com/originals/36/5d/2c/365d2c69e62c7e621097a3e9a2437b2f.jpg",
+      "https://i.pinimg.com/originals/10/9c/77/109c776a1925f1d16ed8a8b6e67c99eb.jpg",
+      "https://i.pinimg.com/originals/ce/02/b4/ce02b418d4e04b173d6ad44aa7f9273f.jpg",
+      "https://i.pinimg.com/originals/6c/18/60/6c18606bb9b4ef24d5dfc021ba00e8fc.jpg"
+    ];
+
+    let currentIndex = 0;
+    const carouselImage = document.getElementById("carouselImage");
+
+    function showNextImage() {
+      carouselImage.src = images[currentIndex];
+      currentIndex = (currentIndex + 1) % images.length;
+    }
+
+    // Inicializa e troca a cada 3 segundos
+    showNextImage();
+    setInterval(showNextImage, 3000);
+
+    // Animação de digitação no título
+    const titleText = "Buscar Design de Tatuagem";
+    let index = 0;
+    function typeWriter() {
+      if (index < titleText.length) {
+        document.getElementById("typing-title").textContent += titleText.charAt(index);
+        index++;
+        setTimeout(typeWriter, 100);
+      }
+    }
+    typeWriter();
+
+    // Buscar tatuagem
     function searchTattoo() {
       const searchTerm = document.getElementById("searchTerm").value.trim();
       if (searchTerm) {
@@ -124,18 +190,6 @@
         searchTattoo();
       }
     });
-
-    // Animação de digitação no título
-    const titleText = "Buscar Design de Tatuagem";
-    let index = 0;
-    function typeWriter() {
-      if (index < titleText.length) {
-        document.getElementById("typing-title").textContent += titleText.charAt(index);
-        index++;
-        setTimeout(typeWriter, 100);
-      }
-    }
-    typeWriter();
   </script>
 </body>
 </html>
